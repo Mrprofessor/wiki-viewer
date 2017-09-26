@@ -19,15 +19,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="card text-center">
-		  	<div class="card-body">
-		    	<h4 class="card-title">Special title treatment</h4>
-		    	<p class="card-text">With supporting text below as a natural to additional content.</p>
-		  	</div>
-		  	<div class="card-footer">
-		    	<a href="#" class="btn btn-info btn-sm">see for yourself</a>
-		  	</div>
-		</div>	
+		<div id="results"></div>
 	</div>
 </body>
 <script type="text/javascript">
@@ -55,7 +47,7 @@
 				return response.json();
 			})
 			.then(function(data){
-				showData(data);					//showData() called
+				iterateData(data);					//showData() called
 			})
 			.catch(function() {
 				console.log("Something really bad has happened.");
@@ -63,13 +55,41 @@
 	}
 
 	//Show data
-	function showData(data) {
+	function iterateData(data) {
 		var articles = data.query.search;
 		for(var article of articles) {
+			showData(article.title, article.snippet, article.pageid);
 			console.log(article.title);
 		}
 		// console.log(data.query.search);
 	}
+
+	function showData(title, text, id) {
+		var str = 
+		'<div class="card text-center">\
+		  		<div class="card-body">\
+		    		<h4 class="card-title">'+title+'</h4>\
+		    		<p class="card-text text-muted">'+text+'</p>\
+		  		</div>\
+		  		<div class="card-footer">\
+		    		<a href="https://en.wikipedia.org/?curid='+id+'"\
+		    		class="btn btn-info btn-sm" target="blank">see for yourself\
+		    		</a>\
+		  		</div>\
+			</div>\
+		</div>';
+
+		append(str, '.container');
+	}
+
+
+
+	// Append function
+	function append(elString, parent) {
+		var div = document.createElement("div");
+		div.innerHTML = elString;
+		document.querySelector(parent || "body").appendChild(div.firstChild);
+}
 
 </script>
 </html>

@@ -3,10 +3,13 @@
 	color: #aaa;
 }*/
 #searchBox {
-	margin-top: 20%;
-	margin-bottom: 2rem;
+	margin-top: 15%;
+	margin-bottom: 1rem;
 }
 #searchBtn {
 	height: 100%;
 	width: 100%;
+}
+.card {
+	margin-top: 1rem;
 }
