@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wikipedia viewer</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<div class="row justify-content-center" id="searchBox">
+			<div class="col-md-8 text-center">
+				<h1 class="text-muted">Fakepedia</h1>
+				<div class="input-group">
+  					<input id="query" type="text" class="form-control" placeholder="What do you wanna know ?"
+  					aria-label="query" aria-describedby="basic-addon2">
+  					<span class="input-group-button" id="basic-addon2">
+  						<button id="searchBtn" class="btn btn-primary">Search here</button>
+  					</span>
+				</div>
+			</div>
+		</div>	
+	</div>
+</body>
+<script type="text/javascript">
+	var query = document.querySelector("#query").value,
+		btn   = document.querySelector("#searchBtn");
+	//HandleEvent
+	//Fetch data
+	function getArticles(query){
+		var url ="http://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&list=search&srsearch=";
+		url  += query ;
+		fetch(url) 
+			.then(function(response){
+				return response.json();
+			})
+			.then(function(data){
+				showData(data);					//showData() called
+			})
+			.catch(function() {
+				console.log("Something really bad has happened.");
+			});
+	}
+
+	//Show data
+	function showData(data) {
+		console.log(data.query.search);
+	}
+	getArticles("apple");
+</script>
+</html>
+
