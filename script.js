@@ -16,7 +16,12 @@
      if(cards[1] != null) {
         removeElements(cards);
      }
-     getArticles(query.value);
+     if(query.value === "") {
+        alert("Enter query.!!")
+     } else {
+        getArticles(query.value);
+     }
+     
  });
 
  //Fetch data
