@@ -14,17 +14,38 @@
   					<input id="query" type="text" class="form-control" placeholder="What do you wanna know ?"
   					aria-label="query" aria-describedby="basic-addon2">
   					<span class="input-group-button" id="basic-addon2">
-  						<button id="searchBtn" class="btn btn-primary">Search here</button>
+  						<button id="searchBtn" class="btn btn-info">Search here</button>
   					</span>
 				</div>
 			</div>
+		</div>
+		<div class="card text-center">
+		  	<div class="card-body">
+		    	<h4 class="card-title">Special title treatment</h4>
+		    	<p class="card-text">With supporting text below as a natural to additional content.</p>
+		  	</div>
+		  	<div class="card-footer">
+		    	<a href="#" class="btn btn-info btn-sm">see for yourself</a>
+		  	</div>
 		</div>	
 	</div>
 </body>
 <script type="text/javascript">
-	var query = document.querySelector("#query").value,
+	var query = document.querySelector("#query"),
 		btn   = document.querySelector("#searchBtn");
-	//HandleEvent
+		
+	//HandleKeyPressEvent
+	document.querySelector("#query").addEventListener("keyup", event => {
+    	if(event.key !== "Enter") return; // Use `.key` instead.
+    	btn.click(); // Things you want to do.
+    	event.preventDefault(); // No need to `return false;`.
+	});
+	//HandleButtonPressEvent
+	btn.addEventListener("click", function(){
+		console.log(query.value);
+		getArticles(query.value);
+	});
+
 	//Fetch data
 	function getArticles(query){
 		var url ="http://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&list=search&srsearch=";
@@ -43,9 +64,13 @@
 
 	//Show data
 	function showData(data) {
-		console.log(data.query.search);
+		var articles = data.query.search;
+		for(var article of articles) {
+			console.log(article.title);
+		}
+		// console.log(data.query.search);
 	}
-	getArticles("apple");
+
 </script>
 </html>
 
